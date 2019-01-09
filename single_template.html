@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <template>
+        <p>Template name <span id="template-name"></span></p>
+        <p>Template copied <span id="template-count"></span></p>
+    </template>
+        <button id="add-button">Add template</button>
+        <hello-world></hello-world>
+        <img src="/img/life cycle.JPG" alt="" width="777px">
+    
+        <hr>
+        <h3>Shadow DOM</h3>
+        <video controls></video>
+        <input type="range" />
+
+        <div>
+            <div class="test">123</div>
+        </div>
+
+
+
+    <script>
+        (function() {
+
+            var templateCounter = 0;
+
+            window.addEventListener("load", function() {
+            document.querySelector('#add-button').addEventListener("click", function() {
+
+
+            var template = document.querySelector("template");
+            var templateClone = document.importNode(template.content, true);
+
+            templateClone.querySelector('#template-name').textContent = 'My template';
+            templateClone.querySelector('#template-count').textContent = ++templateCounter;
+
+            document.body.appendChild(templateClone);
+            })
+        })
+        })();
+
+
+        var helloWorldComponentProto = Object.create(HTMLElement.prototype);
+
+        helloWorldComponentProto.createdCallback = function() {
+            this.innerHTML = "<h3>Hello world!</h3>"
+        };
+
+        var helloWorldComponent = document.registerElement("hello-world", {
+            prototype: helloWorldComponentProto
+        });
+
+
+    </script>
+</body>
+</html>
